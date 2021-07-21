@@ -226,7 +226,9 @@ class BuildBinaryGraphs(build.build):
         'face_detection/face_detection_full_range_cpu',
         'face_landmark/face_landmark_front_cpu',
         'face_geometry/single_face_geometry_from_detection_cpu',
-        'face_geometry/single_face_geometry_from_landmarks_cpu'
+        'face_geometry/data/geometry_pipeline_metadata_detection',
+        'face_geometry/single_face_geometry_from_landmarks_cpu',
+        'face_geometry/data/geometry_pipeline_metadata_landmarks',
     ]
     for binary_graph in binary_graphs:
       sys.stderr.write('generating binarypb: %s\n' %
