@@ -50,6 +50,8 @@ pybind_extension(
         "//mediapipe/framework/formats:landmark_registration",
         "//mediapipe/framework/formats:rect_registration",
         "//mediapipe/modules/objectron/calculators:annotation_registration",
+        "//mediapipe/modules/face_geometry/protos:face_geometry_registration",
+        "//mediapipe/modules/face_geometry/protos:environment_registration",
     ],
 )
 
@@ -66,13 +68,7 @@ cc_library(
         "//mediapipe/modules/face_detection:face_detection_full_range_cpu",
         "//mediapipe/modules/face_detection:face_detection_short_range_cpu",
         "//mediapipe/modules/face_landmark:face_landmark_front_cpu",
-        "//mediapipe/modules/hand_landmark:hand_landmark_tracking_cpu",
-        "//mediapipe/modules/holistic_landmark:holistic_landmark_cpu",
-        "//mediapipe/modules/objectron:objectron_cpu",
-        "//mediapipe/modules/palm_detection:palm_detection_cpu",
-        "//mediapipe/modules/pose_detection:pose_detection_cpu",
-        "//mediapipe/modules/pose_landmark:pose_landmark_by_roi_cpu",
-        "//mediapipe/modules/pose_landmark:pose_landmark_cpu",
-        "//mediapipe/modules/selfie_segmentation:selfie_segmentation_cpu",
+        "//mediapipe/modules/face_geometry:single_face_geometry_from_detection_cpu",
+        "//mediapipe/modules/face_geometry:single_face_geometry_from_landmarks_cpu",
     ],
 )

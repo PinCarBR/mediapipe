@@ -225,10 +225,8 @@ class BuildBinaryGraphs(build.build):
         'face_detection/face_detection_short_range_cpu',
         'face_detection/face_detection_full_range_cpu',
         'face_landmark/face_landmark_front_cpu',
-        'hand_landmark/hand_landmark_tracking_cpu',
-        'holistic_landmark/holistic_landmark_cpu', 'objectron/objectron_cpu',
-        'pose_landmark/pose_landmark_cpu',
-        'selfie_segmentation/selfie_segmentation_cpu'
+        'face_geometry/single_face_geometry_from_detection_cpu',
+        'face_geometry/single_face_geometry_from_landmarks_cpu'
     ]
     for binary_graph in binary_graphs:
       sys.stderr.write('generating binarypb: %s\n' %

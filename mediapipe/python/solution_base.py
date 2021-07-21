@@ -142,6 +142,8 @@ NAME_TO_TYPE: Mapping[str, '_PacketDataType'] = {
         _PacketDataType.PROTO,
     '::mediapipe::Image':
         _PacketDataType.IMAGE,
+    '::mediapipe::face_geometry::Environment':
+        _PacketDataType.PROTO,
     '::std::vector<::mediapipe::Classification>':
         _PacketDataType.PROTO_LIST,
     '::std::vector<::mediapipe::ClassificationList>':
@@ -161,6 +163,8 @@ NAME_TO_TYPE: Mapping[str, '_PacketDataType'] = {
     '::std::vector<::mediapipe::Rect>':
         _PacketDataType.PROTO_LIST,
     '::std::vector<::mediapipe::NormalizedRect>':
+        _PacketDataType.PROTO_LIST,
+    '::std::vector<::mediapipe::face_geometry::FaceGeometry>':
         _PacketDataType.PROTO_LIST,
 }
 

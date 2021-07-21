@@ -13,6 +13,7 @@
 # limitations under the License.
 
 load("//mediapipe/framework/port:build_config.bzl", "mediapipe_proto_library")
+load("//mediapipe/framework:mediapipe_register_type.bzl", "mediapipe_register_type")
 
 licenses(["notice"])
 
@@ -30,6 +31,25 @@ mediapipe_proto_library(
         ":mesh_3d_proto",
         "//mediapipe/framework/formats:matrix_data_proto",
     ],
+)
+
+mediapipe_register_type(
+    base_name = "face_geometry",
+    include_headers = ["mediapipe/modules/face_geometry/protos/face_geometry.pb.h"],
+    types = [
+        "::mediapipe::face_geometry::FaceGeometry",
+        "::std::vector<::mediapipe::face_geometry::FaceGeometry>",
+    ],
+    deps = [":face_geometry_cc_proto"],
+)
+
+mediapipe_register_type(
+    base_name = "environment",
+    include_headers = ["mediapipe/modules/face_geometry/protos/environment.pb.h"],
+    types = [
+        "::mediapipe::face_geometry::Environment",
+    ],
+    deps = [":environment_cc_proto"],
 )
 
 mediapipe_proto_library(
