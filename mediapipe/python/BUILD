@@ -68,7 +68,7 @@ cc_library(
         "//mediapipe/modules/face_detection:face_detection_full_range_cpu",
         "//mediapipe/modules/face_detection:face_detection_short_range_cpu",
         "//mediapipe/modules/face_landmark:face_landmark_front_cpu",
-        "//mediapipe/modules/face_geometry:single_face_geometry_from_detection_cpu",
-        "//mediapipe/modules/face_geometry:single_face_geometry_from_landmarks_cpu",
+        "//mediapipe/modules/face_geometry:face_geometry_from_landmarks_cpu",
+        "//mediapipe/modules/face_geometry:face_geometry_from_detection_cpu",
     ],
 )

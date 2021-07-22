@@ -25,9 +25,10 @@ from mediapipe.modules.face_geometry import geometry_pipeline_calculator_pb2
 # pylint: enable=unused-import
 from mediapipe.python.solution_base import SolutionBase
 
-FACE_GEOMETRY_FROM_DETECTIONS_GRAPH_FILE_PATH = 'mediapipe/modules/face_geometry/single_face_geometry_from_detection_cpu.binarypb'
-FACE_GEOMETRY_FROM_LANDMARKS_GRAPH_FILE_PATH = 'mediapipe/modules/face_geometry/single_face_geometry_from_landmarks_cpu.binarypb'
-
+FACE_GEOMETRY_FROM_LANDMARKS_GRAPH_FILE_PATH = 'mediapipe/modules/face_geometry/face_geometry_from_landmarks_cpu' \
+                                               '.binarypb'
+FACE_GEOMETRY_FROM_DETECTION_GRAPH_FILE_PATH = 'mediapipe/modules/face_geometry/face_geometry_from_detection_cpu' \
+                                               '.binarypb'
 
 def expand_transformation_matrix(
         face_geometry: face_geometry_pb2.FaceGeometry) -> Union[None, Tuple[np.ndarray, np.ndarray]]:
@@ -87,30 +88,36 @@ def get_euler_angles(face_geometry: face_geometry_pb2.FaceGeometry) -> Union[Non
 
 class FaceGeometry(SolutionBase):
     def __init__(self,
+                 num_faces=1,
                  from_detection=False,
                  env_origin_point_location="TOP_LEFT_CORNER",
                  env_perspective_camera_vertical_fov_degrees=63.0,  # 63 degrees
                  env_perspective_camera_near=1.0,  # 1cm
                  env_perspective_camera_far=10000.0,  # 100m
                  ):
-        if from_detection:
-            binary_graph_path = FACE_GEOMETRY_FROM_DETECTIONS_GRAPH_FILE_PATH
-        else:
-            binary_graph_path = FACE_GEOMETRY_FROM_LANDMARKS_GRAPH_FILE_PATH
+
+        binary_graph_path = (FACE_GEOMETRY_FROM_LANDMARKS_GRAPH_FILE_PATH if not from_detection
+                             else FACE_GEOMETRY_FROM_DETECTION_GRAPH_FILE_PATH)
+
+        outputs = (['multi_face_landmarks', 'multi_face_geometry'] if not from_detection
+                   else ['multi_face_landmarks', 'detections'])
+
+        environment = environment_pb2.Environment(
+            origin_point_location=env_origin_point_location,
+            perspective_camera={
+                "vertical_fov_degrees": env_perspective_camera_vertical_fov_degrees,
+                "near": env_perspective_camera_near,
+                "far": env_perspective_camera_far,
+            })
+
         super().__init__(
             binary_graph_path=binary_graph_path,
             side_inputs={
-                "environment": environment_pb2.Environment(
-                    origin_point_location=env_origin_point_location,
-                    perspective_camera={
-                        "vertical_fov_degrees": env_perspective_camera_vertical_fov_degrees,
-                        "near": env_perspective_camera_near,
-                        "far": env_perspective_camera_far,
-                    }
-                )
+                "environment": environment,
+                "num_faces": num_faces
             },
-            outputs=['multi_face_geometry'])
+            outputs=outputs)
 
     def process(self, image: np.ndarray) -> NamedTuple:
 
-        return super().process(input_data={'input_image': image})
+        return super().process(input_data={'image': image})
