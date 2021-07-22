@@ -66,7 +66,7 @@ mediapipe_simple_subgraph(
     deps = [
         ":face_geometry_from_detection",
         "//mediapipe/modules/face_detection:face_detection_short_range_cpu",
-        "//mediapipe/calculators/core:clip_detection_vector_size_calculator"
+        "//mediapipe/calculators/core:clip_vector_size_calculator",
     ],
 )
 
