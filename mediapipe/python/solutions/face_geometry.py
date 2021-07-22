@@ -100,7 +100,7 @@ class FaceGeometry(SolutionBase):
                              else FACE_GEOMETRY_FROM_DETECTION_GRAPH_FILE_PATH)
 
         outputs = (['multi_face_landmarks', 'multi_face_geometry'] if not from_detection
-                   else ['multi_face_landmarks', 'detections'])
+                   else ['detections', 'multi_face_geometry'])
 
         environment = environment_pb2.Environment(
             origin_point_location=env_origin_point_location,
