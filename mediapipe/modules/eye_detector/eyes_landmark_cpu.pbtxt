@@ -1,0 +1,53 @@
+# MediaPipe subgraph to crop the eye area from the image for
+# a single eye. (CPU input, and inference is executed on CPU.)
+#
+# EXAMPLE:
+#   node {
+#     calculator: "IrisLandmarkCpu"
+#     input_stream: "IMAGE:image"
+#     input_stream: "ROI:eye_roi"
+#     input_stream: "IS_RIGHT_EYE:is_right_eye"
+#     output_stream: "IMAGE:transformed_eye_image"
+#   }
+
+type: "EyesLandmarkCpu"
+
+# CPU image. (ImageFrame)
+input_stream: "IMAGE:image"
+# ROI (region of interest) within the given image where an eye is located.
+# (NormalizedRect)
+input_stream: "ROI:roi"
+# Is right eye. (bool)
+# (Model is trained to detect left eye landmarks only, hence for right eye,
+# flipping is required to immitate left eye.)
+input_stream: "IS_RIGHT_EYE:is_right_eye"
+
+# 64x64 cropped eye image
+output_stream: "IMAGE:transformed_eye_image"
+
+node {
+  calculator: "ImageCroppingCalculator"
+  input_stream: "IMAGE:image"
+  input_stream: "NORM_RECT:roi"
+  output_stream: "IMAGE:eye_image"
+  options: {
+    [mediapipe.ImageCroppingCalculatorOptions.ext] {
+      border_mode: BORDER_REPLICATE
+    }
+  }
+}
+
+node {
+  calculator: "ImageTransformationCalculator"
+  input_stream: "IMAGE:eye_image"
+  input_stream: "FLIP_HORIZONTALLY:is_right_eye"
+  output_stream: "IMAGE:transformed_eye_image"
+  output_stream: "LETTERBOX_PADDING:eye_letterbox_padding"
+  options: {
+    [mediapipe.ImageTransformationCalculatorOptions.ext] {
+      output_width: 64
+      output_height: 64
+      scale_mode: FIT
+    }
+  }
+}

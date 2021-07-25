@@ -63,6 +63,9 @@ cc_library(
         "//mediapipe/calculators/core:side_packet_to_stream_calculator",
         "//mediapipe/calculators/core:split_landmarks_calculator",
         "//mediapipe/calculators/core:string_to_int_calculator",
+        "//mediapipe/calculators/core:constant_side_packet_calculator",
+        "//mediapipe/calculators/core:split_vector_calculator",
+        "//mediapipe/calculators/core:concatenate_vector_calculator",
         "//mediapipe/calculators/image:image_transformation_calculator",
         "//mediapipe/calculators/util:detection_unique_id_calculator",
         "//mediapipe/modules/face_detection:face_detection_full_range_cpu",
@@ -70,5 +73,7 @@ cc_library(
         "//mediapipe/modules/face_landmark:face_landmark_front_cpu",
         "//mediapipe/modules/face_geometry:face_geometry_from_landmarks_cpu",
         "//mediapipe/modules/face_geometry:face_geometry_from_detection_cpu",
+        "//mediapipe/modules/eye_detector:eyes_detector_left_and_right_cpu",
+        "//mediapipe/modules/face_geometry:env_generator_calculator",
     ],
 )
